@@ -3,6 +3,7 @@ package Logistica;
 
 public class Paquete {
     
+    private int id;
     private int catidadPiezas;
     private String codigoDestino;
     private String nombreDestinatario;
@@ -12,7 +13,8 @@ public class Paquete {
     private int largo;
     private double pesoVolumetrico;
 
-    public Paquete(int catidadPiezas, String codigoDestino, String nombreDestinatario, String telefonoDestinatario, int alto, int ancho, int largo) {
+    public Paquete(int id, int catidadPiezas, String codigoDestino, String nombreDestinatario, String telefonoDestinatario, int alto, int ancho, int largo) {
+        this.id = id;
         this.catidadPiezas = catidadPiezas;
         this.codigoDestino = codigoDestino;
         this.nombreDestinatario = nombreDestinatario;
@@ -22,6 +24,10 @@ public class Paquete {
         this.largo = largo;
     }
 
+    public int getId() {
+        return id;
+    }
+    
     public int getAlto() {
         return alto;
     }
@@ -56,7 +62,7 @@ public class Paquete {
 
     @Override
     public String toString() {
-        return "Paquete{" + "codigoDestino=" + codigoDestino + ", nombreDestinatario=" + nombreDestinatario + ", telefonoDestinatario=" + telefonoDestinatario + ", pesoVolumetrico=" + pesoVolumetrico + '}';
+        return "Paquete {" + "\nID=" + this.id + "\ncodigoDestino=" + this.codigoDestino + ", \nnombreDestinatario=" + this.nombreDestinatario + ", \ntelefonoDestinatario=" + this.telefonoDestinatario + ", \npesoVolumetrico=" + this.pesoVolumetrico + "\n}";
     }
     
     

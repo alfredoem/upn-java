@@ -27,6 +27,13 @@ public class Ruta {
         
     }
     
+    public void eliminar() {
+        if (this.raiz != null) {
+            Paquete paquete = this.raiz.paquete;
+            this.raiz = this.raiz.siguiente;
+        }
+    }
+    
     public Paquete extraer() {
         if (this.raiz != null) {
             Paquete paquete = this.raiz.paquete;

@@ -21,6 +21,21 @@ public class Almacen {
         }
     }
     
+    public void actualizar(int id, Paquete paquete) {
+        
+        NodoPaquete nodo = this.inicio;
+        
+        while (nodo != null) {            
+            if (id == nodo.paquete.getId()) {
+                nodo.paquete = paquete;
+                break;
+            } else {
+                nodo = nodo.siguiente;
+            }
+        }
+        
+    }
+    
     public Paquete extraer() {
         if (this.estaVacio()) {
             return null;
