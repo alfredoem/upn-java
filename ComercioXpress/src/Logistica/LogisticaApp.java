@@ -2,11 +2,13 @@ package Logistica;
 
 public class LogisticaApp {
     
+    // Principales rutas de transportistas
     static Ruta rutaLima;
     static Ruta rutaPiura;
     static Ruta rutaJunin;
     static Ruta rutaAyacucho;
     static Almacen almacenCentral;
+    // Cubicadora para el calculo de peso volumetrico
     static Cubicadora cubicadora;
 
     public static void main(String[] args) {

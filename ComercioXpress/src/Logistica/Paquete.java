@@ -1,6 +1,7 @@
 package Logistica;
 
-
+// Paquetes con determinada cantidad de piezas (productos) que son
+// enviados a un destinatario
 public class Paquete {
     
     private int id;
@@ -55,7 +56,7 @@ public class Paquete {
     public double getPesoVolumetrico() {
         return this.pesoVolumetrico;
     }
-
+    
     public void setPesoVolumetrico(double pesoVolumetrico) {
         this.pesoVolumetrico = pesoVolumetrico;
     }
@@ -64,6 +65,5 @@ public class Paquete {
     public String toString() {
         return "Paquete {" + "\nID=" + this.id + "\ncodigoDestino=" + this.codigoDestino + ", \nnombreDestinatario=" + this.nombreDestinatario + ", \ntelefonoDestinatario=" + this.telefonoDestinatario + ", \npesoVolumetrico=" + this.pesoVolumetrico + "\n}";
     }
-    
     
 }
