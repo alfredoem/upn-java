@@ -13,6 +13,8 @@ public class LogisticaApp {
 
     public static void main(String[] args) {
         
+        // creacion de objetos Paquete con los datos basicos necesarios
+        // para su procesamiento
         Paquete paquete1 = new Paquete(1, 4, "PE-LIM", "Adalbert Steiner", "985544111", 76, 32, 16);
         Paquete paquete2 = new Paquete(2, 6, "PE-PIU", "Cloud Strife", "945522147", 66, 10, 46);
         Paquete paquete3 = new Paquete(3, 67, "PE-PIU", "Yitan Tribal", "874521456", 29, 29, 29);
@@ -24,7 +26,10 @@ public class LogisticaApp {
         
         System.out.println("***Almacen Central de ComercioXpress*****");
         
+        // creación de un objeto Almacen para ingresar los paquetes
         almacenCentral = new Almacen();
+        
+        // insercion de los paquetes en la cola paquetes del Almacen
         almacenCentral.insertar(paquete1);
         almacenCentral.insertar(paquete2);
         almacenCentral.insertar(paquete3);
@@ -53,33 +58,41 @@ public class LogisticaApp {
         System.out.println("*****Mostrando descripcion de rutas y paquetes*****");
         mostrandoRutas();
         
-        System.out.println("*****Eliminando paquetes de la ruta Junin por falta de espacio para el transporte*****");
+        System.out.println("*****Eliminando paquetes de la ruta Junin por falta de espacio en el transporte*****");
         rutaJunin.eliminar();
         rutaJunin.eliminar();
         rutaJunin.eliminar();
         
-        System.out.println("*****Mostrando descripcion de rutas y paquetes*****");
+        System.out.println("*****Mostrando descripcion final de rutas y paquetes ramados*****");
         mostrandoRutas();
-        
     }
     
+    // creación de objetos Ruta
     public static void creandoRutas() {
         
+        // se busca si existe un paquete con destino en el almacen
+        // PE-LIM para crear la ruta
         if (almacenCentral.buscarRuta("PE-LIM")) {
             rutaLima = new Ruta("PE-LIM");
             System.out.println("Se creo la ruta PE-LIM");
         }
         
+        // se busca si existe un paquete con destino en el almacen
+        // PE-PIU para crear la ruta
         if (almacenCentral.buscarRuta("PE-PIU")) {
             rutaPiura = new Ruta("PE-PIU");
             System.out.println("Se creo la ruta PE-PIU");
         }
         
+        // se busca si existe un paquete con destino en el almacen
+        // PE-JUN para crear la ruta
         if (almacenCentral.buscarRuta("PE-JUN")) {
             rutaJunin = new Ruta("PE-JUN");
             System.out.println("Se creo la ruta PE-JUN");
         }
         
+        // se busca si existe un paquete con destino en el almacen
+        // PE-AYA para crear la ruta
         if (almacenCentral.buscarRuta("PE-AYA")) {
             rutaAyacucho = new Ruta("PE-AYA");
             System.out.println("Se creo la ruta PE-AYA");
@@ -87,14 +100,22 @@ public class LogisticaApp {
         
     }
     
+    // Inserción de paquetes a las rutas correspondientes segun el destino
     public static void armadoRutasDeEntrega() {
         
+        // creación de objeto Cubicadora
         cubicadora = new Cubicadora();
+        
+        // se obteiene el primer paquete que ingreso al almacen
         Paquete paquete = almacenCentral.extraer();
         
-        
+        // mientras que el paquete no sea nulo
         while (paquete != null) {            
+            // se calcula y actualiza el peso volumetrico del paquete
             paquete.setPesoVolumetrico(cubicadora.calcularPesoVolumetrico(paquete.getLargo(), paquete.getAncho(), paquete.getAlto()));
+            
+            // se inserta el paquete a la ruta correspondiente
+            // dea cuerdo al destino
             switch(paquete.getCodigoDestino()) {
                 case "PE-LIM":
                     rutaLima.insertar(paquete);
@@ -110,11 +131,13 @@ public class LogisticaApp {
                     break;
             }
             
+            // se obtiene el siguiente paquete de la cola para su procesamiento
             paquete = almacenCentral.extraer();
             
         }
     }
     
+    // Se muestran los detalles de los paquetes de las rutas
     public static void mostrandoRutas() {
         rutaLima.mostrar();
         rutaPiura.mostrar();
