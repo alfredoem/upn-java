@@ -14,6 +14,7 @@ public class Paquete {
     private int largo;
     private double pesoVolumetrico;
 
+    // constructor que requiere datos necesarios para su inicialización
     public Paquete(int id, int catidadPiezas, String codigoDestino, String nombreDestinatario, String telefonoDestinatario, int alto, int ancho, int largo) {
         this.id = id;
         this.catidadPiezas = catidadPiezas;
@@ -60,7 +61,8 @@ public class Paquete {
     public void setPesoVolumetrico(double pesoVolumetrico) {
         this.pesoVolumetrico = pesoVolumetrico;
     }
-
+    
+    // muestra los valores de las propiedades del paquete
     @Override
     public String toString() {
         return "Paquete {" + "\nID=" + this.id + "\ncodigoDestino=" + this.codigoDestino + ", \nnombreDestinatario=" + this.nombreDestinatario + ", \ntelefonoDestinatario=" + this.telefonoDestinatario + ", \npesoVolumetrico=" + this.pesoVolumetrico + "\n}";
