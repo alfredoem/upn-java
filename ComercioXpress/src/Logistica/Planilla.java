@@ -14,6 +14,9 @@ public class Planilla {
     private int año;
     private Empleado[] empleados;
 
+    public Planilla() {
+    }
+
     public Planilla(int año, int cantidadEmpleados) {
         this.año = año;
         empleados = new Empleado[cantidadEmpleados];
@@ -36,10 +39,17 @@ public class Planilla {
     }
     
     public void mostrarPlanilla() {
-        System.out.println("***PLANILLA - " + this.año + " ***");
-        for (Empleado empleado : empleados) {
-            System.out.println(empleado.toString());
+        
+        if (this.empleados != null) {
+            System.out.println("***PLANILLA - " + this.año + " ***");
+
+            for (Empleado empleado : empleados) {
+                System.out.println(empleado.toString());
+            }
+        } else {
+            System.out.println("No hay empleados registrados!");
         }
+        
     }
     
     

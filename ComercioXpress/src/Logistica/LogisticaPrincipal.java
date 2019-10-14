@@ -22,7 +22,7 @@ public class LogisticaPrincipal {
     // Cubicadora para el calculo de peso volumetrico
     static Cubicadora cubicadora;
     static Scanner sc = new Scanner(System.in);
-    static Planilla planilla;
+    static Planilla planilla = new Planilla();
     
     public static void main(String[] args) {
         
@@ -39,7 +39,7 @@ public class LogisticaPrincipal {
         
         // creacion de objetos Paquete con los datos basicos necesarios
         // para su procesamiento
-        Paquete paquete1 = new Paquete(1, 4, "PE-LIM", "Adalbert Steiner", "985544111", 76, 32, 16);
+        /*Paquete paquete1 = new Paquete(1, 4, "PE-LIM", "Adalbert Steiner", "985544111", 76, 32, 16);
         Paquete paquete2 = new Paquete(2, 6, "PE-PIU", "Cloud Strife", "945522147", 66, 10, 46);
         Paquete paquete3 = new Paquete(3, 67, "PE-PIU", "Yitan Tribal", "874521456", 29, 29, 29);
         Paquete paquete4 = new Paquete(4, 15, "PE-LIM", "Garnet Von Alexandros", "778563215", 40, 55, 80);
@@ -89,18 +89,24 @@ public class LogisticaPrincipal {
         rutaJunin.eliminar();
         
         System.out.println("*****Mostrando descripcion final de rutas y paquetes ramados*****");
-        mostrandoRutas();
+        mostrandoRutas();*/
+    }
+    
+    public static void mostrarMenu() {
+        System.out.println("**Menu de opciones**");
+        System.out.println("0. Mostrar menu");
+        System.out.println("1. Crear planilla");
+        System.out.println("2. Mostrar empleados en planilla");
+        System.out.println("3. Ingresar paquetes de productos al HUB");
+        System.out.println("4. Crear Rutas de Entrega");
+        System.out.println("5. Armado y pesado de piezas por ruta");
+        System.out.println("6. Salir");
     }
     
     public static void menu() {
         
         int opt = 0;
-        System.out.println("**Menu de opciones**");
-        System.out.println("1. Crear planilla");
-        System.out.println("2. Ingresar productos al HUB");
-        System.out.println("3. Crear Rutas de Entrega");
-        System.out.println("4. Armado y pesado de piezas por ruta");
-        System.out.println("5. Salir");
+        mostrarMenu();
         
         while (opt != 5) {
             
@@ -108,15 +114,27 @@ public class LogisticaPrincipal {
             opt = sc.nextInt();
 
             switch(opt) {
+                case 0:
+                    mostrarMenu();
+                    break;
                 case 1:
+                    crearPlanilla();
                     break;
                 case 2:
+                    planilla.mostrarPlanilla();
                     break;
                 case 3:
+                    ingresarPaquetes();
                     break;
                 case 4:
+                    creandoRutas();
                     break;
                 case 5:
+                    armadoRutasDeEntrega();
+                    break;
+                case 6:
+                    System.out.println("Gracias por usar el sistema...");
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Opcion invalida.");
@@ -124,7 +142,6 @@ public class LogisticaPrincipal {
             }
             
         }
-        
         
     }
     
@@ -165,9 +182,7 @@ public class LogisticaPrincipal {
             System.out.println("Seguir creando rutas? S/N");
             String res = sc.next().trim();
             
-            System.out.println(res == "N");
-            
-            if (res.equalsIgnoreCase(res)) {
+            if (res.equalsIgnoreCase("N")) {
                 salir = 1;
             }
         }
@@ -225,6 +240,7 @@ public class LogisticaPrincipal {
         
         for (int i = 0; i < cantidad; i++) {
             almacenCentral.insertar(crearPaquete());
+            System.out.println("Paquete ingresado correctamenente!");
         }
     }
     
@@ -233,7 +249,7 @@ public class LogisticaPrincipal {
         System.out.println("Ingrese el codigo: ");
         int id = sc.nextInt();
         System.out.println("Ingrese el destino, PE-LIM, PE-PIU, LIM-JUN, LIM-AYA: ");
-        String destino = sc.next();
+        String destino = sc.next().toUpperCase().trim();
         System.out.println("Ingrese la cantidad de piezas del paquete: ");
         int piezas = sc.nextInt();
         System.out.println("Ingrese el nombre del destinatario: ");
@@ -262,6 +278,7 @@ public class LogisticaPrincipal {
    
         for (int i = 0; i < cantidad; i++) {
             planilla.setEmpleado(crearEmpleado(), i);
+            System.out.println("Datos creados correctamente!");
         }
         
     }
