@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Logistica;
 
 import java.util.Scanner;
@@ -25,82 +20,21 @@ public class LogisticaPrincipal {
     static Planilla planilla = new Planilla();
     
     public static void main(String[] args) {
-        
         System.out.println("***Almacen Central de ComercioXpress*****");
-        
         menu();
-
-        //crearPlanilla();
-        //planilla.mostrarPlanilla();
-        
-        //ingresarPaquetes();
-        //almacenCentral.mostrar();
-        
-        
-        // creacion de objetos Paquete con los datos basicos necesarios
-        // para su procesamiento
-        /*Paquete paquete1 = new Paquete(1, 4, "PE-LIM", "Adalbert Steiner", "985544111", 76, 32, 16);
-        Paquete paquete2 = new Paquete(2, 6, "PE-PIU", "Cloud Strife", "945522147", 66, 10, 46);
-        Paquete paquete3 = new Paquete(3, 67, "PE-PIU", "Yitan Tribal", "874521456", 29, 29, 29);
-        Paquete paquete4 = new Paquete(4, 15, "PE-LIM", "Garnet Von Alexandros", "778563215", 40, 55, 80);
-        Paquete paquete5 = new Paquete(5, 21, "PE-JUN", "Squall Leonhart", "881236544", 38, 24, 24);
-        Paquete paquete6 = new Paquete(6, 99, "PE-JUN", "Tifa Lockhart", "784523698", 38, 46, 29);
-        Paquete paquete7 = new Paquete(7, 45, "PE-JUN", "Aerith Gainsborough", "124565782", 12, 56, 24);
-        Paquete paquete8 = new Paquete(8, 14, "PE-JUN", "Rinoa Heartilly", "547898654", 8, 32, 40);
-        
-        
-        // creación de un objeto Almacen para ingresar los paquetes
-        almacenCentral = new Almacen();
-        
-        // insercion de los paquetes en la cola paquetes del Almacen
-        almacenCentral.insertar(paquete1);
-        almacenCentral.insertar(paquete2);
-        almacenCentral.insertar(paquete3);
-        almacenCentral.insertar(paquete4);
-        almacenCentral.insertar(paquete5);
-        almacenCentral.insertar(paquete6);
-        almacenCentral.insertar(paquete7);
-        almacenCentral.insertar(paquete8);
-        
-        creandoRutas();
-        
-        System.out.println("Cantidad de paquetes ingresados al Almacen Central: " + almacenCentral.contar());
-        System.out.println("*****Mostrando descripción de paquetes ingresados*****");
-        almacenCentral.mostrar();
-        
-        System.out.println("*****Se registro mal la información del paquete con el ID: 6*****");
-        System.out.println("Actualizando paquete...");
-        Paquete nuevoPaquete6 = new Paquete(6, 1, "PE-JUN", "Zack Fair", "5548784", 38, 46, 29);
-        almacenCentral.actualizar(6, nuevoPaquete6);
-        System.out.println("*****Mostrando descripción de paquetes*****");
-        almacenCentral.mostrar();
-        
-        System.out.println("*****Comenzando proceso de creado de rutas de entrega*****");
-        creandoRutas();
-        System.out.println("*****Comenzando proceso de pesado de paquetes y armado de rutas de entrega*****");
-        armadoRutasDeEntrega();
-        
-        System.out.println("*****Mostrando descripcion de rutas y paquetes*****");
-        mostrandoRutas();
-        
-        System.out.println("*****Eliminando paquetes de la ruta Junin por falta de espacio en el transporte*****");
-        rutaJunin.eliminar();
-        rutaJunin.eliminar();
-        rutaJunin.eliminar();
-        
-        System.out.println("*****Mostrando descripcion final de rutas y paquetes ramados*****");
-        mostrandoRutas();*/
     }
-    
+       
     public static void mostrarMenu() {
         System.out.println("**Menu de opciones**");
         System.out.println("0. Mostrar menu");
         System.out.println("1. Crear planilla");
-        System.out.println("2. Mostrar empleados en planilla");
-        System.out.println("3. Ingresar paquetes de productos al HUB");
-        System.out.println("4. Crear Rutas de Entrega");
-        System.out.println("5. Armado y pesado de piezas por ruta");
-        System.out.println("6. Salir");
+        System.out.println("2. Editar datos de empleado");
+        System.out.println("3. Mostrar empleados en planilla");
+        System.out.println("4. Ingresar paquetes de productos al HUB");
+        System.out.println("5. Crear Rutas de Entrega");
+        System.out.println("6. Armado y pesado de piezas por ruta");
+        System.out.println("7. Mostrar Reporte de Rutas");
+        System.out.println("8. Salir");
     }
     
     public static void menu() {
@@ -121,18 +55,23 @@ public class LogisticaPrincipal {
                     crearPlanilla();
                     break;
                 case 2:
-                    planilla.mostrarPlanilla();
+                    aditarDatosEmpleado();
                     break;
                 case 3:
-                    ingresarPaquetes();
+                    planilla.mostrarPlanilla();
                     break;
                 case 4:
-                    creandoRutas();
+                    ingresarPaquetes();
                     break;
                 case 5:
-                    armadoRutasDeEntrega();
+                    creandoRutas();
                     break;
                 case 6:
+                    armadoRutasDeEntrega();
+                    break;
+                case 7:
+                    mostrandoRutas();                    
+                case 8:
                     System.out.println("Gracias por usar el sistema...");
                     System.exit(0);
                     break;
@@ -192,6 +131,8 @@ public class LogisticaPrincipal {
     // Inserción de paquetes a las rutas correspondientes segun el destino
     public static void armadoRutasDeEntrega() {
         
+        System.out.println("*****Comenzando proceso de pesado de paquetes y armado de rutas de entrega...*****");
+        
         // creación de objeto Cubicadora
         cubicadora = new Cubicadora();
         
@@ -228,12 +169,15 @@ public class LogisticaPrincipal {
     
     // Se muestran los detalles de los paquetes de las rutas
     public static void mostrandoRutas() {
+        System.out.println("*****Mostrando descripcion final de rutas y paquetes ramados*****");
         rutaLima.mostrar();
         rutaPiura.mostrar();
         rutaJunin.mostrar();
     }
     
     public static void ingresarPaquetes() {
+        
+        System.out.println("***** Ingreso de paquetes al HUB *****");
         
         System.out.println("Cuantos paquetes va a ingresar al almacen?");
         int cantidad = sc.nextInt();
@@ -268,6 +212,8 @@ public class LogisticaPrincipal {
     }
     
     public static void crearPlanilla() {
+        
+        System.out.println("***** Creacion de Planilla *****");
         
         System.out.println("Ingrese el año de apertura");
         int año = sc.nextInt();
@@ -310,6 +256,88 @@ public class LogisticaPrincipal {
                 return new OperadorAlmacen(codigo, nombre, apellidos, tipoDoc, numDoc, sueldo);
         }
             
+    }
+    
+    public static void insertarDatosEjemplo() {
+        
+        System.out.println("***** Insertando paquetes de ejemplo al HUB *****");
+        
+        // creacion de objetos Paquete con los datos basicos necesarios
+        // para su procesamiento
+        Paquete paquete1 = new Paquete(1, 4, "PE-LIM", "Adalbert Steiner", "985544111", 76, 32, 16);
+        Paquete paquete2 = new Paquete(2, 6, "PE-PIU", "Cloud Strife", "945522147", 66, 10, 46);
+        Paquete paquete3 = new Paquete(3, 67, "PE-PIU", "Yitan Tribal", "874521456", 29, 29, 29);
+        Paquete paquete4 = new Paquete(4, 15, "PE-LIM", "Garnet Von Alexandros", "778563215", 40, 55, 80);
+        Paquete paquete5 = new Paquete(5, 21, "PE-JUN", "Squall Leonhart", "881236544", 38, 24, 24);
+        Paquete paquete6 = new Paquete(6, 99, "PE-JUN", "Tifa Lockhart", "784523698", 38, 46, 29);
+        Paquete paquete7 = new Paquete(7, 45, "PE-JUN", "Aerith Gainsborough", "124565782", 12, 56, 24);
+        Paquete paquete8 = new Paquete(8, 14, "PE-JUN", "Rinoa Heartilly", "547898654", 8, 32, 40);
+        
+        
+        // creación de un objeto Almacen para ingresar los paquetes
+        almacenCentral = new Almacen();
+        
+        // insercion de los paquetes en la cola paquetes del Almacen
+        almacenCentral.insertar(paquete1);
+        almacenCentral.insertar(paquete2);
+        almacenCentral.insertar(paquete3);
+        almacenCentral.insertar(paquete4);
+        almacenCentral.insertar(paquete5);
+        almacenCentral.insertar(paquete6);
+        almacenCentral.insertar(paquete7);
+        almacenCentral.insertar(paquete8);
+    }
+    
+    public static void aditarDatosEmpleado() {
+        
+        System.out.println("***** Edicion de Empleados *****");
+        System.out.println("Ingrese el codigo:");
+        int codigo = sc.nextInt();
+        
+        Empleado empleado = planilla.buscarEmpleado(codigo);
+        
+        if (empleado != null) {
+            System.out.println("***** Actualizando empleado: " + empleado.getCodigo() + " - " + empleado.getNombre() + " *****");
+            System.out.println("Ingrese el cargo, 1-Jefe, 2-Ruteador, 3-Operario: ");
+            int cargo = sc.nextInt();
+            System.out.println("Ingrese el nombre: ");
+            String nombre = sc.next();
+            System.out.println("Ingrese los apellidos: ");
+            String apellidos = sc.next();
+            System.out.println("Ingrese el tipo de documento DNI-CE-PTP: ");
+            String tipoDoc = sc.next();
+            System.out.println("Ingrese el numero de documento: ");
+            String numDoc = sc.next();
+            System.out.println("Ingrese el sueldo: ");
+            double sueldo = sc.nextDouble();
+            
+            switch (cargo) {
+                case 1:
+                    empleado = new JefeAlmacen(codigo, nombre, apellidos, tipoDoc, numDoc, sueldo);
+                    break;
+                case 2:
+                    empleado = new Ruteador(codigo, nombre, apellidos, tipoDoc, numDoc, sueldo);
+                    break;
+                default:
+                    empleado = new OperadorAlmacen(codigo, nombre, apellidos, tipoDoc, numDoc, sueldo);
+                    break;
+            }
+            
+            planilla.actualizarEmpleado(codigo, empleado);
+            System.out.println("Empleado actualizado!");
+            
+            
+        } else {
+            System.out.println("El empleado con el codigo " + codigo + " no existe");
+        }
+        
+        for (int i = 0; i < planilla.getEmpleados().length ; i++) {
+            if (true) {
+                
+            }
+        }
+        
+        
     }
     
 }

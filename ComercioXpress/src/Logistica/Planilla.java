@@ -38,6 +38,41 @@ public class Planilla {
         this.empleados[numLista] = empleado;
     }
     
+    public Empleado buscarEmpleado(int codigo) {
+        
+        if (this.empleados != null) {
+            
+            for (Empleado empleado : empleados) {
+                
+                if (empleado.getCodigo() == codigo) {
+                    return empleado;
+                }
+            }
+            
+        } else {
+            System.out.println("No hay empleados registrados!");
+        }
+        
+        return null;
+    }
+    
+    public void actualizarEmpleado(int codigo, Empleado empleado) {
+        
+        if (this.empleados != null) {
+            
+            
+            for (int i = 0; i < empleados.length; i++) {
+                if (empleados[i].getCodigo() == codigo) {
+                    empleados[i] = empleado;
+                }
+            }
+            
+        } else {
+            System.out.println("No hay empleados registrados!");
+        }
+        
+    }
+    
     public void mostrarPlanilla() {
         
         if (this.empleados != null) {
