@@ -4,7 +4,7 @@ package Logistica;
  *
  * @author alfredo
  */
-public class Ruteador extends Empleado implements ITrabajar {
+public class Ruteador extends Empleado {
 
     public Ruteador(int codigo, String nombre, String apellidos, String tipoDoc, String numDoc, double sueldo) {
         super(codigo, nombre, apellidos, tipoDoc, numDoc, sueldo);

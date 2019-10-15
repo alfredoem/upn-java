@@ -4,7 +4,7 @@ package Logistica;
  *
  * @author alfredo
  */
-public class OperadorAlmacen extends Empleado implements ITrabajar {
+public class OperadorAlmacen extends Empleado{
 
     public OperadorAlmacen(int codigo, String nombre, String apellidos, String tipoDoc, String numDoc, double sueldo) {
         super(codigo, nombre, apellidos, tipoDoc, numDoc, sueldo);
@@ -19,7 +19,5 @@ public class OperadorAlmacen extends Empleado implements ITrabajar {
     public void trabajar() {
         System.out.println("Embalado y preparando paquetes para las rutas...");
     }
-    
-    
     
 }

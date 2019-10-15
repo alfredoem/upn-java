@@ -34,7 +34,8 @@ public class LogisticaPrincipal {
         System.out.println("5. Crear Rutas de Entrega");
         System.out.println("6. Armado y pesado de piezas por ruta");
         System.out.println("7. Mostrar Reporte de Rutas");
-        System.out.println("8. Salir");
+        System.out.println("8. Poblar con datos de ejemplo");
+        System.out.println("9. Salir");
     }
     
     public static void menu() {
@@ -42,7 +43,7 @@ public class LogisticaPrincipal {
         int opt = 0;
         mostrarMenu();
         
-        while (opt != 5) {
+        while (opt != 9) {
             
             System.out.println("Seleccione una opcion del menu:");
             opt = sc.nextInt();
@@ -70,8 +71,12 @@ public class LogisticaPrincipal {
                     armadoRutasDeEntrega();
                     break;
                 case 7:
-                    mostrandoRutas();                    
+                    mostrandoRutas();
+                    break;
                 case 8:
+                    insertarDatosEjemplo();
+                    break;
+                case 9:
                     System.out.println("Gracias por usar el sistema...");
                     System.exit(0);
                     break;
@@ -82,6 +87,23 @@ public class LogisticaPrincipal {
             
         }
         
+    }
+    
+    public static boolean validarRutasCreadas() {
+        
+        boolean creada = true;
+        
+        if (almacenCentral.buscarRuta("PE-LIM") && rutaLima == null) {
+            creada = false;
+        } else if (almacenCentral.buscarRuta("PE-PIU") && rutaPiura == null) {
+            creada = false;
+        } else if (almacenCentral.buscarRuta("PE-JUN") && rutaJunin == null) {
+            creada = false;
+        } else if (almacenCentral.buscarRuta("PE-AYA") && rutaAyacucho == null) {
+            creada = false;
+        }
+        
+        return creada;
     }
     
     // creación de objetos Ruta
@@ -111,7 +133,6 @@ public class LogisticaPrincipal {
                         break;
                     case "PE-AYA":
                         rutaAyacucho = new Ruta(codigoRuta);
-
                         break;
                 }
                 
@@ -133,14 +154,35 @@ public class LogisticaPrincipal {
         
         System.out.println("*****Comenzando proceso de pesado de paquetes y armado de rutas de entrega...*****");
         
+        if (planilla.getEmpleados() == null) {
+            System.out.println("No hay empleados para inciar el proceso...");
+            return;
+        }
+        
+        System.out.println("*Reporte de actividades*");
+        for (Empleado empleado : planilla.getEmpleados()) {
+            System.out.println(empleado.getNombre() + ": ");
+            empleado.trabajar();
+        }
+        
+        if (validarRutasCreadas() == false) {
+            System.out.println("Debe crear las rutas para continuar...");
+            return;
+        }
+                
         // creación de objeto Cubicadora
         cubicadora = new Cubicadora();
         
         // se obteiene el primer paquete que ingreso al almacen
         Paquete paquete = almacenCentral.extraer();
         
+        if (paquete == null) {
+            System.out.println("No hay paquetes ingresados al HUB");
+            return;
+        }
+        
         // mientras que el paquete no sea nulo
-        while (paquete != null) {            
+        while (paquete != null) {
             // se calcula y actualiza el peso volumetrico del paquete
             paquete.setPesoVolumetrico(cubicadora.calcularPesoVolumetrico(paquete.getLargo(), paquete.getAncho(), paquete.getAlto()));
             
@@ -165,11 +207,19 @@ public class LogisticaPrincipal {
             paquete = almacenCentral.extraer();
             
         }
+        
+        System.out.println("*Proceso de pesado de paquetes y armado finalizado...*");
     }
     
     // Se muestran los detalles de los paquetes de las rutas
     public static void mostrandoRutas() {
         System.out.println("*****Mostrando descripcion final de rutas y paquetes ramados*****");
+        
+        if (validarRutasCreadas() == false) {
+            System.out.println("No hay rutas creadas...");
+            return;
+        }
+        
         rutaLima.mostrar();
         rutaPiura.mostrar();
         rutaJunin.mostrar();
@@ -180,7 +230,7 @@ public class LogisticaPrincipal {
         System.out.println("***** Ingreso de paquetes al HUB *****");
         
         System.out.println("Cuantos paquetes va a ingresar al almacen?");
-        int cantidad = sc.nextInt();
+        int cantidad = Integer.parseInt(sc.next());
         
         for (int i = 0; i < cantidad; i++) {
             almacenCentral.insertar(crearPaquete());
@@ -190,25 +240,25 @@ public class LogisticaPrincipal {
     
     public static Paquete crearPaquete() {
         
-        System.out.println("Ingrese el codigo: ");
-        int id = sc.nextInt();
-        System.out.println("Ingrese el destino, PE-LIM, PE-PIU, LIM-JUN, LIM-AYA: ");
+        System.out.println("\nIngrese el codigo: ");
+        int id = Integer.parseInt(sc.next());
+        System.out.println("\nIngrese el destino, PE-LIM, PE-PIU, PE-JUN, PE-AYA: ");
         String destino = sc.next().toUpperCase().trim();
-        System.out.println("Ingrese la cantidad de piezas del paquete: ");
-        int piezas = sc.nextInt();
-        System.out.println("Ingrese el nombre del destinatario: ");
+        System.out.println("\nIngrese la cantidad de piezas del paquete: ");
+        int piezas = Integer.parseInt(sc.next());
+        System.out.println("\nIngrese el nombre del destinatario: ");
         String nombreDestinatario = sc.next();
-        System.out.println("Ingrese el telefono del destinatario: ");
+        System.out.println("\nIngrese el telefono del destinatario: ");
         String telefono = sc.next();
-        System.out.println("Ingrese las medidas de paquete: ");
+        System.out.println("\nIngrese las medidas de paquete: ");
         System.out.println("Alto: ");
-        int alto = sc.nextInt();
+        int alto = Integer.parseInt(sc.next());
         System.out.println("Ancho: ");
-        int ancho = sc.nextInt();
+        int ancho = Integer.parseInt(sc.next());
         System.out.println("Largo: ");
-        int largo = sc.nextInt();
+        int largo = Integer.parseInt(sc.next());
         
-        return new Paquete(id, piezas, destino, nombreDestinatario, nombreDestinatario, alto, ancho, largo);
+        return new Paquete(id, piezas, destino, nombreDestinatario, telefono, alto, ancho, largo);
     }
     
     public static void crearPlanilla() {
@@ -286,30 +336,36 @@ public class LogisticaPrincipal {
         almacenCentral.insertar(paquete6);
         almacenCentral.insertar(paquete7);
         almacenCentral.insertar(paquete8);
+        planilla = new Planilla(2019, 3);
+        planilla.setEmpleado(new JefeAlmacen(1111, "Frank", "Jager", "DNI", "48154512", 3500), 0);
+        planilla.setEmpleado(new JefeAlmacen(2222, "Leao", "Butron", "DNI", "48451212", 2500), 1);
+        planilla.setEmpleado(new JefeAlmacen(3333, "Mirko", "Bucinic", "DNI", "78451245", 1500), 2);
+        
+        System.out.println("Datos de ejemplo creados...");
     }
     
     public static void aditarDatosEmpleado() {
         
         System.out.println("***** Edicion de Empleados *****");
         System.out.println("Ingrese el codigo:");
-        int codigo = sc.nextInt();
+        int codigo = Integer.parseInt(sc.next());
         
         Empleado empleado = planilla.buscarEmpleado(codigo);
         
         if (empleado != null) {
             System.out.println("***** Actualizando empleado: " + empleado.getCodigo() + " - " + empleado.getNombre() + " *****");
-            System.out.println("Ingrese el cargo, 1-Jefe, 2-Ruteador, 3-Operario: ");
-            int cargo = sc.nextInt();
-            System.out.println("Ingrese el nombre: ");
+            System.out.println("\nIngrese el cargo, 1-Jefe, 2-Ruteador, 3-Operario: ");
+            int cargo = Integer.parseInt(sc.next());
+            System.out.println("\nIngrese el nombre: ");
             String nombre = sc.next();
-            System.out.println("Ingrese los apellidos: ");
+            System.out.println("\nIngrese los apellidos: ");
             String apellidos = sc.next();
-            System.out.println("Ingrese el tipo de documento DNI-CE-PTP: ");
+            System.out.println("\nIngrese el tipo de documento DNI-CE-PTP: ");
             String tipoDoc = sc.next();
-            System.out.println("Ingrese el numero de documento: ");
+            System.out.println("\nIngrese el numero de documento: ");
             String numDoc = sc.next();
-            System.out.println("Ingrese el sueldo: ");
-            double sueldo = sc.nextDouble();
+            System.out.println("\nIngrese el sueldo: ");
+            double sueldo = Double.parseDouble(sc.next());
             
             switch (cargo) {
                 case 1:
@@ -331,13 +387,5 @@ public class LogisticaPrincipal {
             System.out.println("El empleado con el codigo " + codigo + " no existe");
         }
         
-        for (int i = 0; i < planilla.getEmpleados().length ; i++) {
-            if (true) {
-                
-            }
-        }
-        
-        
-    }
-    
+    }    
 }

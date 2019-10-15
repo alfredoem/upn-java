@@ -4,7 +4,7 @@ package Logistica;
  *
  * @author alfredo
  */
-public abstract class Empleado {
+public abstract class Empleado implements ITrabajar {
     
     private int codigo;
     private String nombre;
@@ -84,7 +84,5 @@ public abstract class Empleado {
                 + ", sueldo=" + sueldo
                 + '}';
     }
-    
-    
     
 }
